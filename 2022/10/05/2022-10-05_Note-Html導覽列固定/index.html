@@ -1,0 +1,188 @@
+<!DOCTYPE html><html lang="zh-TW" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Note - Html導覽列固定 | Sphere</title><meta name="keywords" content="JavaScript,Css,Html"><meta name="author" content="BlueSphere"><meta name="copyright" content="BlueSphere"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言這幾天做side project的時候發現網站的上方導覽列固定功能很常用到，而且需要一點邏輯才實現，因此紀錄。 問體網頁上方導覽列不固定，造成使用者瀏覽時的困擾。 解決方法需要同時運用到前端三兄弟（Html、Css、JavaScript），利用偵測觀察滑鼠滾輪，並在適當的時機添加或移除css標籤（固定在上方）。 123456789101112131415161718&lt;!-- 創建簡易使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Note - Html導覽列固定">
+<meta property="og:url" content="http://blue-sphere.github.io/2022/10/05/2022-10-05_Note-Html%E5%B0%8E%E8%A6%BD%E5%88%97%E5%9B%BA%E5%AE%9A/index.html">
+<meta property="og:site_name" content="Sphere">
+<meta property="og:description" content="前言這幾天做side project的時候發現網站的上方導覽列固定功能很常用到，而且需要一點邏輯才實現，因此紀錄。 問體網頁上方導覽列不固定，造成使用者瀏覽時的困擾。 解決方法需要同時運用到前端三兄弟（Html、Css、JavaScript），利用偵測觀察滑鼠滾輪，並在適當的時機添加或移除css標籤（固定在上方）。 123456789101112131415161718&lt;!-- 創建簡易使用">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://i.imgur.com/e6rE45P.jpg">
+<meta property="article:published_time" content="2022-10-04T16:00:00.000Z">
+<meta property="article:modified_time" content="2022-10-05T06:04:47.830Z">
+<meta property="article:author" content="BlueSphere">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="Css">
+<meta property="article:tag" content="Html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/e6rE45P.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://blue-sphere.github.io/2022/10/05/2022-10-05_Note-Html%E5%B0%8E%E8%A6%BD%E5%88%97%E5%9B%BA%E5%AE%9A/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '複製成功',
+    error: '複製錯誤',
+    noSupport: '瀏覽器不支援'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '剛剛',
+    min: '分鐘前',
+    hour: '小時前',
+    day: '天前',
+    month: '個月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Note - Html導覽列固定',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-10-05 14:04:47'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.imgur.com/AirIYnd.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data is-center"><div class="data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a></div><div class="data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">5</div></a></div><div class="data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">0</div></a></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分類</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.imgur.com/e6rE45P.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Sphere</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首頁</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 標籤</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分類</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Note - Html導覽列固定</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">發表於</span><time class="post-meta-date-created" datetime="2022-10-04T16:00:00.000Z" title="發表於 2022-10-05 00:00:00">2022-10-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新於</span><time class="post-meta-date-updated" datetime="2022-10-05T06:04:47.830Z" title="更新於 2022-10-05 14:04:47">2022-10-05</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Note - Html導覽列固定"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">閱讀量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>這幾天做side project的時候發現<font color=#FF6600>網站的上方導覽列固定功能很常用到，而且需要一點邏輯才實現</font>，因此紀錄。</p>
+<h1 id="問體"><a href="#問體" class="headerlink" title="問體"></a>問體</h1><p>網頁上方導覽列不固定，造成使用者瀏覽時的困擾。</p>
+<h1 id="解決方法"><a href="#解決方法" class="headerlink" title="解決方法"></a>解決方法</h1><p>需要同時運用到前端三兄弟（Html、Css、JavaScript），<font color=#FF6600>利用偵測觀察滑鼠滾輪，並在適當的時機添加或移除css標籤（固定在上方）</font>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 創建簡易使用者介面導覽 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">header</span> <span class="attr">id</span>=<span class="string">&quot;header&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">nav</span> <span class="attr">id</span>=<span class="string">&quot;navbar&quot;</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;nav__links&quot;</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>User<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Services<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>About<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">ul</span>&gt;</span>             </span><br><span class="line">            <span class="tag">&lt;/<span class="name">nav</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;content&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.content</span> &#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">16px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*固定導覽列標籤*/</span></span><br><span class="line"><span class="selector-class">.sticky</span> &#123;</span><br><span class="line">    <span class="attribute">position</span>: fixed;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*防止快速移動*/</span></span><br><span class="line"><span class="selector-class">.sticky</span> + <span class="selector-class">.content</span> &#123;</span><br><span class="line">    <span class="attribute">padding</span>: <span class="number">16px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onscroll = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; <span class="comment">//偵測滾輪並執行函式</span></span><br><span class="line">    stick_navbar();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> navbar = <span class="built_in">document</span>.getElementById(<span class="string">&quot;header&quot;</span>)</span><br><span class="line"><span class="keyword">var</span> sticky = navbar.offsetTop; <span class="comment">//.offsetTop == 子元素在父元素的垂直位置</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stick_navbar</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.pageYOffset &gt;= sticky)&#123; <span class="comment">//.pageYoffset == 目前Y軸滾輪位置</span></span><br><span class="line">        navbar.classList.add(<span class="string">&quot;sticky&quot;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        navbar.classList.remove(<span class="string">&quot;sticky&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>透過上面的邏輯，讓頁面超過導覽列時固定在上面。</p>
+<h1 id="資料參考、來源"><a href="#資料參考、來源" class="headerlink" title="資料參考、來源"></a>資料參考、來源</h1><p>W3Schools - <a target="_blank" rel="noopener" href="https://www.w3schools.com/howto/howto_js_navbar_sticky.asp">How TO - Sticky/Affix Navbar</a><br>W3Schools - <a target="_blank" rel="noopener" href="https://www.w3schools.com/jsref/prop_win_pageYoffset.asp">Window pageYOffset</a><br>iT邦幫忙 - <a target="_blank" rel="noopener" href="https://ithelp.ithome.com.tw/articles/10195246">JS30-Day13-Slide in on Scroll</a></p>
+<h1 id="結語"><a href="#結語" class="headerlink" title="結語"></a>結語</h1><p>通常若是做網頁都會用到這個功能，未來若需設計前端時應該會大量用到，得熟悉與紀錄才行，共勉之。</p>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/JavaScript/">JavaScript</a><a class="post-meta__tags" href="/tags/Css/">Css</a><a class="post-meta__tags" href="/tags/Html/">Html</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/10/04/2022-10-04_Note-innerHTML%E5%BE%8C%EF%BC%8C%E6%96%B0%E9%A0%81%E9%9D%A2%E4%B8%8D%E8%BC%89%E5%85%A5js%E5%95%8F%E9%A1%8C/"><img class="next-cover" src="https://i.imgur.com/YQQBg2H.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Note - innerHTML後，新頁面不載入js問題</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相關推薦</span></div><div class="relatedPosts-list"><div><a href="/2022/08/31/2022-08-31_Note-%E5%90%8C%E6%AD%A5%E7%95%B0%E6%AD%A5%E6%A6%82%E5%BF%B5/" title="Note - 同步異步概念"><img class="cover" src="https://i.imgur.com/DUPT96b.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-08-31</div><div class="title">Note - 同步異步概念</div></div></a></div><div><a href="/2022/10/04/2022-10-04_Note-innerHTML%E5%BE%8C%EF%BC%8C%E6%96%B0%E9%A0%81%E9%9D%A2%E4%B8%8D%E8%BC%89%E5%85%A5js%E5%95%8F%E9%A1%8C/" title="Note - innerHTML後，新頁面不載入js問題"><img class="cover" src="https://i.imgur.com/YQQBg2H.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-04</div><div class="title">Note - innerHTML後，新頁面不載入js問題</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 評論</span></div></div><div class="comment-wrap"><div><div id="utterances-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.imgur.com/AirIYnd.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">BlueSphere</div><div class="author-info__description"></div></div><div class="card-info-data is-center"><div class="card-info-data-item"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a></div><div class="card-info-data-item"><a href="/tags/"><div class="headline">標籤</div><div class="length-num">5</div></a></div><div class="card-info-data-item"><a href="/categories/"><div class="headline">分類</div><div class="length-num">0</div></a></div></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Blue-Sphere"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Blue-Sphere" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:a6109z@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content"></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目錄</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%95%8F%E9%AB%94"><span class="toc-number">2.</span> <span class="toc-text">問體</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%A3%E6%B1%BA%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">解決方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B3%87%E6%96%99%E5%8F%83%E8%80%83%E3%80%81%E4%BE%86%E6%BA%90"><span class="toc-number">4.</span> <span class="toc-text">資料參考、來源</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B5%90%E8%AA%9E"><span class="toc-number">5.</span> <span class="toc-text">結語</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/10/05/2022-10-05_Note-Html%E5%B0%8E%E8%A6%BD%E5%88%97%E5%9B%BA%E5%AE%9A/" title="Note - Html導覽列固定"><img src="https://i.imgur.com/e6rE45P.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Note - Html導覽列固定"/></a><div class="content"><a class="title" href="/2022/10/05/2022-10-05_Note-Html%E5%B0%8E%E8%A6%BD%E5%88%97%E5%9B%BA%E5%AE%9A/" title="Note - Html導覽列固定">Note - Html導覽列固定</a><time datetime="2022-10-04T16:00:00.000Z" title="發表於 2022-10-05 00:00:00">2022-10-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/10/04/2022-10-04_Note-innerHTML%E5%BE%8C%EF%BC%8C%E6%96%B0%E9%A0%81%E9%9D%A2%E4%B8%8D%E8%BC%89%E5%85%A5js%E5%95%8F%E9%A1%8C/" title="Note - innerHTML後，新頁面不載入js問題"><img src="https://i.imgur.com/YQQBg2H.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Note - innerHTML後，新頁面不載入js問題"/></a><div class="content"><a class="title" href="/2022/10/04/2022-10-04_Note-innerHTML%E5%BE%8C%EF%BC%8C%E6%96%B0%E9%A0%81%E9%9D%A2%E4%B8%8D%E8%BC%89%E5%85%A5js%E5%95%8F%E9%A1%8C/" title="Note - innerHTML後，新頁面不載入js問題">Note - innerHTML後，新頁面不載入js問題</a><time datetime="2022-10-03T16:00:00.000Z" title="發表於 2022-10-04 00:00:00">2022-10-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/08/31/2022-08-31_Note-%E5%90%8C%E6%AD%A5%E7%95%B0%E6%AD%A5%E6%A6%82%E5%BF%B5/" title="Note - 同步異步概念"><img src="https://i.imgur.com/DUPT96b.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Note - 同步異步概念"/></a><div class="content"><a class="title" href="/2022/08/31/2022-08-31_Note-%E5%90%8C%E6%AD%A5%E7%95%B0%E6%AD%A5%E6%A6%82%E5%BF%B5/" title="Note - 同步異步概念">Note - 同步異步概念</a><time datetime="2022-08-30T16:00:00.000Z" title="發表於 2022-08-31 00:00:00">2022-08-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/02/03/2022-02-03_Tutorial-%E5%9F%BA%E7%A4%8ELineBot%E5%BB%BA%E7%BD%AE/" title="Tutorial - 基礎LineBot建置"><img src="https://i.imgur.com/285pyRj.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Tutorial - 基礎LineBot建置"/></a><div class="content"><a class="title" href="/2022/02/03/2022-02-03_Tutorial-%E5%9F%BA%E7%A4%8ELineBot%E5%BB%BA%E7%BD%AE/" title="Tutorial - 基礎LineBot建置">Tutorial - 基礎LineBot建置</a><time datetime="2022-02-03T05:23:33.000Z" title="發表於 2022-02-03 13:23:33">2022-02-03</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://i.imgur.com/e6rE45P.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By BlueSphere</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主題 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="閱讀模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="淺色和深色模式轉換"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="單欄和雙欄切換"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="設定"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目錄"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直達評論"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到頂部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"><script>function loadUtterances () {
+  let ele = document.createElement('script')
+  ele.setAttribute('id', 'utterances_comment')
+  ele.setAttribute('src', 'https://utteranc.es/client.js')
+  ele.setAttribute('repo', 'Blue-Sphere/blue-sphere.github.io-comment')
+  ele.setAttribute('issue-term', 'pathname')
+  let nowTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'photon-dark' : 'github-light'
+  ele.setAttribute('theme', nowTheme)
+  ele.setAttribute('crossorigin', 'anonymous')
+  ele.setAttribute('async', 'true')
+  document.getElementById('utterances-wrap').insertAdjacentElement('afterbegin',ele)
+}
+
+function utterancesTheme () {
+  const iframe = document.querySelector('.utterances-frame')
+  if (iframe) {
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'photon-dark' : 'github-light'
+    const message = {
+      type: 'set-theme',
+      theme: theme
+    };
+    iframe.contentWindow.postMessage(message, 'https://utteranc.es');
+  }
+}
+
+if ('Utterances' === 'Utterances' || !false) {
+  if (false) btf.loadComment(document.getElementById('utterances-wrap'), loadUtterances)
+  else loadUtterances()
+} else {
+  function loadOtherComment () {
+    loadUtterances()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
